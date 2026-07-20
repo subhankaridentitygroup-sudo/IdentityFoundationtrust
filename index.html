@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- fontawesome cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+      integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <!-- aos cdn -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- link css, media and favicon -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      #nav_bar {
+        background: rgba(214, 214, 214, 0.7); /* smoke transparent */
+        backdrop-filter: blur(2px);
+      }
+      .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+        align-items: center;
+      }
+      .nav-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 14px;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #ffffff, #f2f2f2);
+        color: #800000 !important;
+        border: none;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      }
+      .nav-btn:hover, .nav-btn:focus {
+        background: linear-gradient(145deg, #f7f7f7, #e5e5e5);
+        color: #800000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.9);
+      }
+      .dropdown-menu {
+        background: #fff;
+        border: 1.5px solid #800000;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(128,0,0,0.15);
+        min-width: 180px;
+      }
+      .dropdown-item {
+        color: #800000;
+        padding: 10px 16px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .dropdown-item:hover, .dropdown-item:focus {
+        background: #800000;
+        color: #fff !important;
+      }
+      .dropdown-toggle::after {
+        display: inline-block;
+      }
+      /* Hover to open submenu */
+      .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+      }
+      .dropdown-toggle:hover::after {
+        transform: rotate(180deg);
+      }
+      .read-more-btn, .volunteer-btn {
+        display: inline-block;
+        color: #fff !important;
+        background: #800000;
+        border: 2px solid #800000;
+        border-radius: 30px;
+        padding: 8px 28px;
+        font-weight: 600;
+        text-decoration: none !important;
+        box-shadow: 0 0 0px #800000;
+        transition: box-shadow 0.3s, background 0.3s, color 0.3s;
+        margin-top: 10px;
+      }
+      .read-more-btn:hover, .read-more-btn:focus,
+      .volunteer-btn:hover, .volunteer-btn:focus {
+        background: #fff;
+        color: #800000 !important;
+        box-shadow: 0 0 16px 4px #800000;
+        border-color: #800000;
+      }
+      .hero-copy {
+        max-width: min(1120px, calc(100% - 32px));
+        padding-bottom: clamp(36px, 8vh, 84px);
+      }
+      .hero-copy h1 {
+        max-width: none;
+        font-size: clamp(1.6rem, 3vw, 3.4rem);
+        line-height: 1.08;
+        white-space: nowrap;
+      }
+      .hero-copy h3 {
+        font-size: clamp(1.25rem, 2vw, 2rem);
+      }
+    /* Mobile Responsive Updates */
+    @media (max-width: 768px) {
+      #nav_bar {
+        padding: 8px 0;
+      }
+      .navbar-nav {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+      }
+      .nav-btn {
+        padding: 8px 10px;
+        font-size: 1rem;
+        border-radius: 16px;
+        margin-bottom: 6px;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .navbar-brand img {
+        height: 48px !important;
+        max-width: 120px;
+      }
+      .read-more-btn, .volunteer-btn {
+        padding: 8px 16px;
+        font-size: 1rem;
+        border-radius: 18px;
+      }
+      .carousel-inner img {
+        height: 180px !important;
+        max-width: 100%;
+      }
+      .container, .container-fluid {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+      }
+      h1, h2, h4, h5 {
+        font-size: 1.2rem !important;
+      }
+      .panel-card {
+        margin-bottom: 16px;
+      }
+      .hero-copy {
+        max-width: calc(100% - 16px);
+        padding-bottom: 32px;
+      }
+      .hero-copy h1 {
+        font-size: clamp(1.15rem, 5vw, 1.7rem);
+      }
+    }
+    </style>
+    <script src="script.js"></script>
+
+    <title>IDENTITY Foundation</title>
+  </head>
+
+  <body>
+    <!-- Loading Animation with Center Split -->
+    <div id="loader-overlay">
+      <div class="loader-panel left-panel"></div>
+      <div class="loader-panel right-panel"></div>
+      <div class="loader-text">IDENTITY FOUNDATION</div>
+    </div>
+    <style>
+      #loader-overlay {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        width: 100vw; height: 100vh;
+        z-index: 9999;
+        overflow: hidden;
+      }
+      .loader-panel {
+        position: absolute;
+        top: 0; bottom: 0;
+        width: 50vw;
+        background: rgba(255,246,246,0.97);
+        transition: transform 1.6s cubic-bezier(.77,0,.18,1);
+      }
+      .left-panel {
+        left: 0;
+        border-right: 1px solid #80000022;
+      }
+      .right-panel {
+        right: 0;
+        border-left: 1px solid #80000022;
+      }
+      .loader-text {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 4rem;
+        font-weight: 800;
+        color: #d88c8c;
+        letter-spacing: 2px;
+        text-align: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        text-shadow: 0 2px 18px #d88c8c44, 0 1px 0 #fff, 0 0px 8px #d88c8c22;
+        pointer-events: none;
+      }
+      #loader-overlay.hide .left-panel {
+        transform: translateX(-100vw);
+      }
+      #loader-overlay.hide .right-panel {
+        transform: translateX(100vw);
+      }
+      #loader-overlay.hide .loader-text {
+        opacity: 0;
+        transition: opacity 0.7s;
+      }
+      #loader-overlay.hide {
+        pointer-events: none;
+      }
+    </style>
+    <script>
+      window.addEventListener('load', function() {
+        var loader = document.getElementById('loader-overlay');
+        loader.classList.add('hide');
+        setTimeout(function(){ loader.style.display = 'none'; }, 1600);
+      });
+    </script>
+    <!-- navbar -->
+
+    <nav class="navbar navbar-expand-lg sticky-top border-bottom" id="nav_bar">
+      <div class="container-fluid px-md-5">
+        <a class="navbar-brand" href="IDENTITY.html">
+          <img src="./Identity Foundation logo.png" alt="Identity Foundation Logo" height="65px" id="nav_img" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end text-center pe-3"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item" id="nav_a1">
+              <a class="nav-link nav-btn active" href="IDENTITY.html">Home</a>
+            </li>
+
+            <li class="nav-item" id="nav_a7">
+              <a class="nav-link nav-btn" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item" id="nav_a2">
+              <a class="nav-link nav-btn" href="our-programs.html">Our Programs</a>
+            </li>
+            <li class="nav-item" id="nav_a3">
+              <a class="nav-link nav-btn" href="activities.html">Activities</a>
+            </li>
+            <li class="nav-item" id="nav_a4">
+              <a class="nav-link nav-btn" href="stories.html">Stories of Changes</a>
+            </li>
+            <li class="nav-item" id="nav_a6">
+              <a class="nav-link nav-btn" href="collaborators.html">Collaborators</a>
+            </li>            <li class="nav-item" id="nav_a9">
+              <a class="nav-link nav-btn" href="events.html">Events</a>
+            </li>
+            <li class="nav-item" id="nav_a8">
+              <a class="nav-link nav-btn" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- carousel -->
+
+          <div class="position-relative overflow-hidden">
+            <video
+              class="mx-auto d-block"
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="auto"
+              style="max-width:100%; width:100%; height:90%; min-height:380px; object-fit:cover; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.2);"
+            >
+              <source src="D:\Identity Foundation Website\Pictures\Hero Section Video.mp4"/>
+              Your browser does not support the video tag.
+            </video>
+            <div
+              class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end justify-content-start"
+              style="background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);"
+            >
+              <div class="hero-copy text-start text-white px-4 px-md-5 pt-4 pt-md-5">
+                <h3 class="d-flex align-items-center justify-content-start gap-2 mb-3">
+                  From Grassroots to Growth
+                  <img
+                    src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png"
+                    alt=""
+                    class="m-0"
+                    width="20px"
+                  />
+                </h3>
+                <h1 class="mb-3">
+                  Empowering Communities With Care, Clarity, and Commitment.
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Removed the third carousel slide as requested -->
+      </div>
+    </div>
+
+    <div class="mt-4"></div>
+
+    <!-- welcome -->
+    <section
+      class="container"
+      data-aos="fade-up"
+      data-aos-offset="-100"
+      data-aos-delay="40"
+      data-aos-duration="600"
+      data-aos-easing="ease-in-out"
+      data-aos-mirror="true"
+      data-aos-once="false"
+      data-aos-anchor-placement="top-center"
+    >
+      <div class="row text-center" id="welcome">
+        <div class="col-12">
+          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png" alt="" width="30px" />
+          <h1>WELCOME TO <span>IDENTITY FOUNDATION</span></h1>
+        </div>
+        <div class="col-md-8 offset-md-2 my-md-5">
+          <p>
+            IDENTITY Foundation is committed to equipping stakeholders with the tools, knowledge, and confidence to navigate their life paths while fostering social and economic empowerment through innovative programs.
+            <br class="d-none d-md-block" />
+          </p>
+          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/sketch-1.png" alt="" width="250px" />
+          <center>
+            <img
+              src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/quote-1.png"
+              alt=""
+              width="50px"
+              class="d-block d-md-none"
+            />
+          </center>
+        </div>
+      </div>
+    </section>
+
+    <!-- what we do  -->
+
+    <section id="t-cards" class="mt-5">
+      <div class="container pb-md-5 mb-md-4 mb-3">
+        <div class="row">
+          <div class="col-12 text-center mb-5">
+            <h1>
+              What We Do <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png" alt="" width="25px" />
+            </h1>
+          </div>
+          <div
+            class="col-sm-6 col-md-4"
+            data-aos="zoom-in"
+            data-aos-delay="10"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-anchor-placement="center-bottom"
+          >
+            <div class="panel panel-default panel-card">
+              <div class="panel-heading">
+                <div class="w-100 d-flex justify-content-center align-items-center" style="min-height:120px;">
+                <img src="D:\Identity Foundation Website\Pictures\Skilling.jpeg" loading="lazy" class="mx-auto d-block" style="max-width:90%;height:auto;object-fit:cover;" />
+                </div>
+              </div>
+              <div class="panel-figure">
+                <i class="fa-solid fa-tools fa-bounce"></i>
+              </div>
+              <div class="panel-body text-center">
+                <h4 class="panel-header">Skilling</h4>
+                <p class="m-0">
+                  <small>Placement-Oriented Training</small>
+                </p>
+              </div>
+              <div class="panel-thumbnails">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <p class="m-0">
+                      Industry-relevant skills for meaningful employment and sustainable livelihoods.
+                    </p>
+                    <a href="our-programs.html#skilling" class="read-more-btn">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-sm-6 col-md-4"
+            data-aos="zoom-in"
+            data-aos-delay="10"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-anchor-placement="center-bottom"
+          >
+            <div class="panel panel-default panel-card">
+              <div class="panel-heading">
+                <div class="w-100 d-flex justify-content-center align-items-center" style="min-height:120px;">
+                <img src="D:\Identity Foundation Website\Pictures\🚀 A Historic Milestone in Belpahar! 🎓✨ Identity Foundation, in collaboration with TRLK, proudl (9).jpg" loading="lazy" class="mx-auto d-block" style="max-width:90%;height:auto;object-fit:cover;" />
+                </div>
+              </div>
+              <div class="panel-figure">
+                <i class="fa-solid fa-heart-pulse fa-bounce"></i>
+              </div>
+              <div class="panel-body text-center">
+                <h4 class="panel-header">Mental Health (Women)</h4>
+                <p class="m-0">
+                  <small>Psychological Empowerment</small>
+                </p>
+              </div>
+              <div class="panel-thumbnails">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <p class="m-0">
+                      Emotional wellbeing, resilience, and stigma-free support for girls and young women.
+                    </p>
+                    <a href="our-programs.html#mental-health" class="read-more-btn">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-sm-6 col-md-4"
+            data-aos="zoom-in"
+            data-aos-delay="10"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-anchor-placement="center-bottom"
+          >
+            <div class="panel panel-default panel-card">
+              <div class="panel-heading">
+                <div class="w-100 d-flex justify-content-center align-items-center" style="min-height:120px;">
+                <img src="D:\Identity Foundation Website\Pictures\🚀 A Historic Milestone in Belpahar! 🎓✨ Identity Foundation, in collaboration with TRLK, proudl (14).jpg" alt="Career Counselling" loading="lazy" class="mx-auto d-block" style="max-width:90%;height:auto;object-fit:cover;" />
+                </div>
+              </div>
+              <div class="panel-figure">
+                <i class="fa-solid fa-compass fa-bounce"></i>
+              </div>
+              <div class="panel-body text-center">
+                <h4 class="panel-header">Career Counselling</h4>
+                <p class="m-0">
+                  <small>Strategic Decision-Making</small>
+                </p>
+              </div>
+              <div class="panel-thumbnails">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <p class="m-0">
+                      Personalized guidance for informed academic and career choices.
+                    </p>
+                    <a href="our-programs.html#career-counselling" class="read-more-btn">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- vision -->
+
+    <div class="container mb-3 mb-md-5">
+      <div class="row text-center" id="vision">
+        <div class="col-12 text-center">
+          <h1>
+            <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png" alt="" class="m-0" width="25px" />
+            <br />
+            Mission, Philosophy & Approach <br class="d-none d-md-block" />
+            for Social Empowerment.
+            <br />
+            <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/sketch-2.png" alt="" width="250px" />
+          </h1>
+        </div>
+        <div class="col-md-4">
+          <section>
+            <img
+              src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/mission.png"
+              alt=""
+              class="img-fluid"
+              width="60px"
+            />
+          </section>
+          <h4><strong>Our Mission</strong></h4>
+          <p class="m-3">
+            To transform lives through education, career guidance, skill development, mental wellbeing, teacher empowerment, and community outreach while extending care and support to vulnerable children, senior citizens, and underserved communities through meaningful social initiatives and partnerships.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <section>
+            <img
+              src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/vision.png"
+              alt=""
+              class="img-fluid"
+              width="60px"
+            />
+          </section>
+          <h4><strong>Our Vision</strong></h4>
+          <p class="m-3">
+            To create an equitable and compassionate society where every individual has the opportunity to learn, grow, thrive, and contribute meaningfully to the community.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <section>
+            <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/value.png" alt="" class="img-fluid" width="60px" />
+          </section>
+          <h4><strong>Our Core Values</strong></h4>
+          <p class="m-3">
+            We are guided by inclusivity, integrity, empathy, and collaboration. We believe in working with transparency, respect, and shared purpose to create meaningful, lasting change in the lives we touch.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- achieve -->
+
+    <section class="container-fluid mb-5" id="achieve">
+      <div class="row py-md-5 py-5">
+        <div class="col-12 text-center">
+          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/we-use-icon.png" alt="" width="60px" />
+          <h1>
+            This is the impact you helped <br class="d-none d-md-block" />
+            us achieved
+          </h1>
+        </div>
+        <div class="row text-center count_div justify-content-center">
+          <section class="col-sm-6 col-md-4">
+            <img src="" alt="" />
+            <h2 class="pt-2"><span id="number2">8,40,609</span><strong>+</strong></h2>
+            <h5 class="g-0">
+              <strong>Students</strong> <br />
+              impacted through webinars & school visits.
+            </h5>
+          </section>
+          <section class="col-sm-6 col-md-4">
+            <img src="" alt="" />
+            <h2 class="pt-2"><span id="number3">5,740</span><strong>+</strong></h2>
+            <h5 class="">
+              <strong>Teachers, Headmasters, BEOs, ADOs,</strong> & <strong>DEOs</strong> <br />
+              trained through capacity-building programs.
+            </h5>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="container-fluid mb-5">
+      <div class="row justify-content-center py-md-5">
+        <div class="col-md-8 text-center px-md-5 mb-5 mb-md-0">
+          <h1 class="m-4 pb-md-5">What People Say</h1>
+          <div
+            id="review_carousel"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner mt-md-5 mt-3">
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="testimonial-wrapper">
+                      <div>
+                        <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/quote-1.png" alt="" /> <br />
+                        <p class="m-2 m-md-4">
+                          Lorem ipsum dolor sit, amet consectetur adipisicing
+                          elit. Laboriosam magniLorem ipsum dolor sit, amet
+                          consectetur adipisicing elit. Laboriosam magni
+                        </p>
+                        <h5>
+                          Vinay Singh
+                          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png" alt="" width="15px" />
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="testimonial-wrapper">
+                      <div>
+                        <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/quote-1.png" alt="" /> <br />
+                        <p class="m-2 m-md-4">
+                          Lorem ipsum dolor sit, amet consectetur adipisicing
+                          elit. Laboriosam magniLorem ipsum dolor sit, amet
+                          consectetur adipisicing elit. Laboriosam magni
+                        </p>
+                        <h5>
+                          Vinay Singh
+                          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png" alt="" width="15px" />
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="testimonial-wrapper">
+                      <div>
+                        <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/quote-1.png" alt="" /> <br />
+                        <p class="m-2 m-md-4">
+                          Lorem ipsum dolor sit, amet consectetur adipisicing
+                          elit. Laboriosam magniLorem ipsum dolor sit, amet
+                          consectetur adipisicing elit. Laboriosam magni
+                        </p>
+                        <h5>
+                          Vinay Singh
+                          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png" alt="" width="15px" />
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- helping hand -->
+    <section class="container-fluid border" id="helping_hand">
+      <div class="row px-md-5 d-flex align-items-center">
+        <div class="col-md-6 p-3 ps-md-5 text-center text-md-start">
+          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/love-icon.png" alt="" width="15px" /> <br />
+          <small>HELPING HANDS</small>
+          <h1 class="my-3">
+            We're Here to Help <br />
+            People in Need
+          </h1>
+          <p>
+            We are committed to empowering underserved individuals and marginalized communities through education, guidance, and welfare initiatives. By creating opportunities and promoting inclusion, we strive to build brighter futures for those in need.
+          </p>
+          <div class="text-end d-none d-md-block">
+            <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/arrow.png" alt="" id="hh_img1" />
+          </div>
+        </div>
+        <div class="col-md-6 text-center" id="hh_img2">
+          <video
+            class="mx-auto d-block"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="auto"
+            style="max-width:100%; width:100%; height:auto; border-radius:24px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.2);"
+          >
+            <source src="D:\Identity Foundation Website\Pictures\Helping Hand Video.mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- become helper -->
+
+    <section class="container pb-4" id="help">
+      <div class="row justify-content-center">
+        <div class="col-12 text-center">
+          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/sketch-3.png" alt="" width="250px" />
+          <h1 class="">
+            Help People Change Lives <br class="d-none d-md-block" />
+            Locally and Around <br class="d-none d-md-block" />
+            The World
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <section class="container-fluid text-center text-md-start" id="footer">
+      <div class="row py-5 gy-4 gx-0 flex-column flex-md-row align-items-center align-items-md-start">
+        <div class="col-12 col-md-4 ps-md-5 mb-4 mb-md-0 text-center text-md-start">
+          <img src="d:\Identity Foundation Website\Identity Foundation logo.png" alt="" class="img-fluid mb-3 ms-md-5" style="max-width:180px;" />
+          <p class="pt-2 px-2 px-md-0 pe-md-4 text-white small">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. In, odit.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. In, odit.
+            amet consectetur.
+          </p>
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6 h-md4">Pages</h4>
+          <a href="" class="d-block mb-1" style="color:#800000;">Home</a>
+          <a href="" class="d-block mb-1" style="color:#800000;">Facility</a>
+          <a href="" class="d-block mb-1" style="color:#800000;">Animal Care</a>
+          <a href="" class="d-block mb-1" style="color:#800000;">About Us</a>
+          <a href="contact.html" class="d-block mb-1" style="color:#800000;">Contact Us</a>
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6 h-md4">Links</h4>
+          <a href="#" class="d-block mb-1" style="color:#800000;">Home</a>
+          <a href="#" class="d-block mb-1" style="color:#800000;">Facility</a>
+          <a href="#" class="d-block mb-1" style="color:#800000;">Animal Care</a>
+          <a href="#" class="d-block mb-1" style="color:#800000;">About Us</a>
+          <a href="contact.html" class="d-block mb-1" style="color:#800000;">Contact Us</a>
+        </div>
+        <div class="col-12 col-md-4 f_contact text-center text-md-start">
+          <h4 class="h6 h-md4">Contact</h4>
+          <a href="#" class="d-block mb-1" style="color:#800000;">
+            <i class="fa-solid fa-paper-plane"></i> indentity.foundation@gmail.com
+          </a>
+          <a href="#" class="d-block mb-1" style="color:#800000;"> <i class="fa-solid fa-phone"></i> +9192939495 </a>
+          <a href="#" class="d-block mb-1" style="color:#800000;"> <i class="fa-solid fa-house"></i> Address </a>
+          <span class="d-block small" style="color:#000;">ABC Block Society,<br>Dwarka Sector - 54<br>New Delhi 110020</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- bootstrap script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      infgrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
