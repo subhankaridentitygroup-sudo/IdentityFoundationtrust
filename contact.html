@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDENTITY Foundation</title>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <!-- aos cdn -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- link css, media and favicon -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      #nav_bar {
+        background: rgba(214, 214, 214, 0.7); /* smoke transparent */
+        backdrop-filter: blur(2px);
+      }
+      .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+        align-items: center;
+      }
+      .nav-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 14px;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #ffffff, #f2f2f2);
+        color: #800000 !important;
+        border: none;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      }
+      .nav-btn:hover, .nav-btn:focus {
+        background: linear-gradient(145deg, #f7f7f7, #e5e5e5);
+        color: #800000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.9);
+      }
+      .dropdown-menu {
+        background: #fff;
+        border: 1.5px solid #800000;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(128,0,0,0.15);
+        min-width: 180px;
+      }
+      .dropdown-item {
+        color: #800000;
+        padding: 10px 16px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .dropdown-item:hover, .dropdown-item:focus {
+        background: #800000;
+        color: #fff !important;
+      }
+      .dropdown-toggle::after {
+        display: inline-block;
+      }
+      /* Hover to open submenu */
+      .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+      }
+      .dropdown-toggle:hover::after {
+        transform: rotate(180deg);
+      }
+      @media (max-width: 768px) {
+        #nav_bar {
+          padding: 8px 0;
+        }
+        .navbar-nav {
+          flex-direction: column;
+          gap: 8px;
+          align-items: stretch;
+        }
+        .nav-btn {
+          padding: 8px 10px;
+          font-size: 1rem;
+          border-radius: 16px;
+          margin-bottom: 6px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+        .navbar-brand img {
+          height: 48px !important;
+          max-width: 120px;
+        }
+      }
+      .page-header {
+        background: linear-gradient(135deg, #800000 0%, #a01a1a 100%);
+        color: #fff;
+        padding: 60px 0 30px 0;
+        text-align: center;
+      }
+      .content-section {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 16px rgba(128,0,0,0.07);
+        padding: 40px 24px;
+        margin-top: -40px;
+      }
+      .contact-info {
+        background: #f8f8f8;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 32px;
+      }
+      .contact-form {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(128,0,0,0.09);
+        padding: 32px 24px;
+      }
+      .form-control:focus {
+        border-color: #800000;
+        box-shadow: 0 0 8px #80000033;
+      }
+      .btn-contact {
+        background: #800000;
+        color: #fff;
+        border-radius: 30px;
+        padding: 8px 28px;
+        font-weight: 600;
+        border: 2px solid #800000;
+        transition: background 0.3s, color 0.3s;
+      }
+      .btn-contact:hover, .btn-contact:focus {
+        background: #fff;
+        color: #800000;
+        border-color: #800000;
+      }
+      .form-control {
+        border: 1.5px solid #ddd;
+        border-radius: 6px;
+        padding: 10px 12px;
+      }
+      .form-control:focus {
+        border-color: #800000;
+        box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.1);
+      }
+    </style>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <!-- Navbar (copied from IDENTITY.html) -->
+    <nav class="navbar navbar-expand-lg sticky-top border-bottom" id="nav_bar">
+      <div class="container-fluid px-md-5">
+        <a class="navbar-brand" href="IDENTITY.html">
+          <img src="./Identity Foundation logo.png" alt="Identity Foundation Logo" height="65px" id="nav_img" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end text-center pe-3"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item" id="nav_a1">
+              <a class="nav-link nav-btn" href="IDENTITY.html">Home</a>
+            </li>
+            <li class="nav-item" id="nav_a7">
+              <a class="nav-link nav-btn" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item" id="nav_a2">
+              <a class="nav-link nav-btn" href="our-programs.html">Our Programs</a>
+            </li>
+            <li class="nav-item" id="nav_a3">
+              <a class="nav-link nav-btn" href="activities.html">Activities</a>
+            </li>
+            <li class="nav-item" id="nav_a4">
+              <a class="nav-link nav-btn" href="stories.html">Stories of Changes</a>
+            </li>
+            <li class="nav-item" id="nav_a6">
+              <a class="nav-link nav-btn" href="collaborators.html">Collaborators</a>
+            </li>
+            <li class="nav-item" id="nav_a9">
+              <a class="nav-link nav-btn" href="events.html">Events</a>
+            </li>
+            <li class="nav-item" id="nav_a8">
+              <a class="nav-link nav-btn active" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Contact Us Header -->
+    <div class="page-header">
+      <h1>Contact Us</h1>
+      <p class="lead">Establish Connection with IDENTITY Foundation</p>
+    </div>
+    <!-- Contact Info Section -->
+    <section class="container content-section" data-aos="fade-up">
+      <div class="row contact-info mb-4">
+        <div class="col-md-4 text-center mb-3 mb-md-0">
+          <h4><i class="fa-solid fa-paper-plane"></i> Email</h4>
+          <p>identity.foundation@gmail.com</p>
+        </div>
+        <div class="col-md-4 text-center mb-3 mb-md-0">
+          <h4><i class="fa-solid fa-phone"></i> Phone</h4>
+          <p>+91-929-394-95</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <h4><i class="fa-solid fa-map-location-dot"></i> Location</h4>
+          <p>Bhubaneswar,<br>Odisha, India</p>
+        </div>
+      </div>
+      
+      <h3 class="mt-5 mb-4">For Institutional Collaborations, Corporate CSR Partnership Deployment, or Program Deployment Requests</h3>
+      
+      <!-- Contact Form -->
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <form class="contact-form" action="#" method="post">
+            <div class="mb-3">
+              <label for="fullname" class="form-label">Legal Full Name</label>
+              <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your full name" required />
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Official Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com" required />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="phone" class="form-label">Telephone Contact</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="+91-XXXX-XXXX-XX" required />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+              <select class="form-control" id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="educational-institution">Educational Institution</option>
+                <option value="corporate-csr">Corporate CSR Partner</option>
+                <option value="student">Student</option>
+                <option value="parent">Parent</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message Intent / Details</label>
+              <textarea class="form-control" id="message" name="message" rows="5" placeholder="Describe your inquiry or partnership proposal" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-contact">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Legal Attribution -->
+    <section class="container mt-5 mb-5">
+      <div style="background: #f8f8f8; padding: 24px; border-radius: 8px; text-align: center;">
+        <p style="color: #666; margin: 0;">
+          <strong>IDENTITY Foundation is an Initiative of IDENTITY Group. All Rights Reserved © 2026.</strong>
+        </p>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <section class="container-fluid text-center text-md-start" id="footer">
+      <div class="row py-5 gy-4 gx-0 flex-column flex-md-row align-items-center align-items-md-start">
+        <div class="col-12 col-md-4 ps-md-5 mb-4 mb-md-0 text-center text-md-start">
+          <img src="D:/Identity Foundation logo.png" alt="" class="img-fluid mb-3 ms-md-5" style="max-width:180px;" />
+          <p class="pt-2 px-2 px-md-0 pe-md-4 text-white small">
+            IDENTITY Foundation is committed to creating meaningful change through education, skill development, career counseling, and community empowerment.
+          </p>
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6">Programs</h4>
+          <a href="our-programs.html#skilling" class="d-block mb-1" style="color:#800000;">Skilling</a>
+          <a href="our-programs.html#mental-health" class="d-block mb-1" style="color:#800000;">Mental Health</a>
+          <a href="our-programs.html#career-counselling" class="d-block mb-1" style="color:#800000;">Career Counselling</a>
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6">Quick Links</h4>
+          <a href="IDENTITY.html" class="d-block mb-1" style="color:#800000;">Home</a>
+          <a href="about.html" class="d-block mb-1" style="color:#800000;">About Us</a>
+          <a href="contact.html" class="d-block mb-1" style="color:#800000;">Contact</a>
+        </div>
+        <div class="col-12 col-md-4 f_contact text-center text-md-start">
+          <h4 class="h6">Get in Touch</h4>
+          <a href="mailto:identity.foundation@gmail.com" class="d-block mb-1" style="color:#800000;"><i class="fa-solid fa-envelope"></i> identity.foundation@gmail.com</a>
+          <a href="tel:+919293949500" class="d-block mb-1" style="color:#800000;"><i class="fa-solid fa-phone"></i> +91-929-394-95</a>
+          <span class="d-block small" style="color:#000;"><i class="fa-solid fa-map-location-dot"></i> Bhubaneswar, Odisha, India</span>
+        </div>
+      </div>
+    </section>
+    <!-- bootstrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>

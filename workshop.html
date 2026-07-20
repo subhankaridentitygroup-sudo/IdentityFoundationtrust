@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop - IDENTITY Foundation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+  <style>
+    body { background: #f8f9fa; }
+    .workshop-header { background: #800000; color: #fff; padding: 32px 0; text-align: center; }
+    .workshop-card { box-shadow: 0 2px 8px rgba(128,0,0,0.07); margin-bottom: 24px; }
+    .workshop-img { width:100%; height:200px; object-fit:cover; border-radius:8px 8px 0 0; }
+    .team-section { background: #fff; border-radius: 8px; padding: 32px; margin-top: 32px; }
+    .team-img { width:80px; height:80px; object-fit:cover; border-radius:50%; margin-right:16px; }
+  </style>
+</head>
+<body>
+  <div class="workshop-header">
+    <h1><i class="fa-solid fa-chalkboard-user"></i> Workshops</h1>
+    <p>Explore our latest workshops and training sessions</p>
+  </div>
+  <div class="container py-4">
+    <div class="row" id="workshopList">
+      <!-- Workshops will be rendered here -->
+    </div>
+    <div class="team-section">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0"><i class="fa-solid fa-users"></i> Our Team</h2>
+        <button class="btn btn-outline-secondary btn-sm" id="refreshTeamBtn" title="Refresh team data">
+          <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+      </div>
+      <div class="row" id="teamList">
+        <!-- Team members will be rendered here -->
+      </div>
+    </div>
+  </div>
+  <script>
+    // Example workshop data
+    function getWorkshops() {
+      return [
+        {
+          title: 'Skill Development Workshop',
+          desc: 'Learn new skills with expert trainers.',
+          img: 'https://via.placeholder.com/400x200?text=Skill+Workshop',
+          date: '2025-08-10'
+        },
+        {
+          title: 'Health Awareness Camp',
+          desc: 'Free health checkup and awareness session.',
+          img: 'https://via.placeholder.com/400x200?text=Health+Camp',
+          date: '2025-09-05'
+        }
+      ];
+    }
+    function renderWorkshops() {
+      var workshops = getWorkshops();
+      var workshopList = document.getElementById('workshopList');
+      workshopList.innerHTML = '';
+      workshops.forEach(function(ws) {
+        var col = document.createElement('div');
+        col.className = 'col-md-6';
+        col.innerHTML = `
+          <div class="card workshop-card">
+            <img src="${ws.img}" class="workshop-img" alt="Workshop Image">
+            <div class="card-body">
+              <h5 class="card-title">${ws.title}</h5>
+              <p class="card-text">${ws.desc}</p>
+              <p class="text-muted"><i class="fa-solid fa-calendar-days"></i> ${ws.date}</p>
+            </div>
+          </div>
+        `;
+        workshopList.appendChild(col);
+      });
+    }
+    // Load team from localStorage
+    function getTeam() {
+      var team = localStorage.getItem('teamData');
+      if (team) return JSON.parse(team);
+      return [
+        { name: 'Sapna Sharma', role: 'Feature Page Developer', img: 'https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg' },
+        { name: 'Sarin Suseel', role: 'About Page Developer', img: 'https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg' },
+        { name: 'Vinay Singh', role: 'Home Page Developer', img: 'https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg' },
+        { name: 'Nitin Kumar', role: 'Animal Care Page Developer', img: 'https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg' },
+        { name: 'Mirtunjay Kumar', role: 'Contact Page Developer', img: 'https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg' }
+      ];
+    }
+    function renderTeam() {
+      var team = getTeam();
+      var teamList = document.getElementById('teamList');
+      teamList.innerHTML = '';
+      team.forEach(function(member) {
+        var col = document.createElement('div');
+        col.className = 'col-md-4 mb-4 d-flex align-items-center';
+        col.innerHTML = `
+          <img src="${member.img}" class="team-img" alt="Team Member">
+          <div>
+            <h5 class="mb-1">${member.name}</h5>
+            <p class="text-muted mb-0">${member.role}</p>
+          </div>
+        `;
+        teamList.appendChild(col);
+      });
+    }
+    renderWorkshops();
+    renderTeam();
+    // Listen for localStorage changes (from admin panel)
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'teamData') {
+        renderTeam();
+      }
+    });
+    // Manual refresh button for team data
+    document.getElementById('refreshTeamBtn').addEventListener('click', function() {
+      renderTeam();
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

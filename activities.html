@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDENTITY Foundation</title>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <!-- aos cdn -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- link css, media and favicon -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      #nav_bar {
+        background: rgba(214, 214, 214, 0.7);
+        backdrop-filter: blur(2px);
+      }
+      .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+        align-items: center;
+      }
+      .nav-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 14px;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #ffffff, #f2f2f2);
+        color: #800000 !important;
+        border: none;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      }
+      .nav-btn:hover, .nav-btn:focus {
+        background: linear-gradient(145deg, #f7f7f7, #e5e5e5);
+        color: #800000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.9);
+      }
+      .dropdown-menu {
+        background: #fff;
+        border: 1.5px solid #800000;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(128,0,0,0.15);
+        min-width: 180px;
+      }
+      .dropdown-item {
+        color: #800000;
+        padding: 10px 16px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .dropdown-item:hover, .dropdown-item:focus {
+        background: #800000;
+        color: #fff !important;
+      }
+      /* Hover to open submenu */
+      .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+      }
+      .dropdown-toggle:hover::after {
+        transform: rotate(180deg);
+      }
+      @media (max-width: 768px) {
+        #nav_bar {
+          padding: 8px 0;
+        }
+        .navbar-nav {
+          flex-direction: column;
+          gap: 8px;
+          align-items: stretch;
+        }
+        .nav-btn {
+          padding: 8px 10px;
+          font-size: 1rem;
+          border-radius: 16px;
+          margin-bottom: 6px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+        .navbar-brand img {
+          height: 48px !important;
+          max-width: 120px;
+        }
+      }
+      .page-header {
+        background: linear-gradient(135deg, #800000 0%, #a01a1a 100%);
+        color: #fff;
+        padding: 60px 0 30px 0;
+        text-align: center;
+      }
+      .content-section {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 16px rgba(128,0,0,0.07);
+        padding: 40px 24px;
+        margin-top: -40px;
+        margin-bottom: 40px;
+      }
+      .activity-card {
+        background: #f8f8f8;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+        border-left: 4px solid #800000;
+      }
+      .gallery-container {
+        margin-top: 16px;
+      }
+      .gallery-carousel {
+        margin-top: 16px;
+      }
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: #800000;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        opacity: 0.7;
+      }
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 40px;
+      }
+      .carousel-control-prev:hover .carousel-control-prev-icon,
+      .carousel-control-next:hover .carousel-control-next-icon {
+        opacity: 1;
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        aspect-ratio: 1;
+        cursor: pointer;
+        background: #f0f0f0;
+        height: 200px;
+      }
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+      .gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(128, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+      .gallery-overlay i {
+        color: #fff;
+        font-size: 28px;
+      }
+    </style>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top border-bottom" id="nav_bar">
+      <div class="container-fluid px-md-5">
+        <a class="navbar-brand" href="IDENTITY.html">
+          <img src="./Identity Foundation logo.png" alt="Identity Foundation Logo" height="65px" id="nav_img" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end text-center pe-3"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item" id="nav_a1">
+              <a class="nav-link nav-btn" href="IDENTITY.html">Home</a>
+            </li>
+            <li class="nav-item" id="nav_a7">
+              <a class="nav-link nav-btn" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item" id="nav_a2">
+              <a class="nav-link nav-btn" href="our-programs.html">Our Programs</a>
+            </li>
+            <li class="nav-item" id="nav_a3">
+              <a class="nav-link nav-btn" href="activities.html">Activities</a>
+            </li>
+            <li class="nav-item" id="nav_a4">
+              <a class="nav-link nav-btn" href="stories.html">Stories of Changes</a>
+            </li>
+            <li class="nav-item" id="nav_a6">
+              <a class="nav-link nav-btn" href="collaborators.html">Collaborators</a>
+            </li>
+            <li class="nav-item" id="nav_a9">
+              <a class="nav-link nav-btn" href="events.html">Events</a>
+            </li>
+            <li class="nav-item" id="nav_a8">
+              <a class="nav-link nav-btn" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1>Our Activities</h1>
+      <p class="lead">Creating Memorable Experiences</p>
+    </div>
+
+    <!-- Content Section -->
+    <section class="container content-section" data-aos="fade-up">
+      <h2 class="mb-4">Field Operations and Institutional Engagement</h2>
+      <p>
+        At Identity Foundation, we are creating engaging learning experiences that inspire students to learn beyond the classroom. Through our school engagement programmes, students are actively participating in team-building activities, leadership tasks, problem-solving challenges, creative thinking exercises, ice-breaker sessions, group discussions, and collaborative classroom activities.
+      </p>
+      <p>
+        Every activity is encouraging students to step out of their comfort zones, communicate confidently, think critically, and build meaningful connections with their peers. By combining learning with fun, we are fostering self-confidence, communication skills, teamwork, leadership, creativity, emotional intelligence, decision-making, and a positive learning mindset, creating memorable experiences that leave a lasting impact on every participant.
+      </p>
+
+      <h3 class="mt-5 mb-4">Activities Gallery:</h3>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="activity-card" data-aos="fade-up">
+            <h4><i class="fas fa-graduation-cap" style="color:#800000;"></i> Activity 1: School Visit at Balangir</h4>
+            <p>Our school visit to Balangir included engaging interactions across two key campuses Bluel Nodal Higher Secondary School and Govt. SSD Higher Secondary School, Chudapali.</p>
+            <!-- Gallery Carousel for Activity 1 -->
+            <div class="gallery-carousel mt-4">
+              <div id="carouselActivity1" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                  <!-- Slide 1: Images 0-2 -->
+                  <div class="carousel-item active">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(0)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/01.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(1)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/02.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(2)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/03.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 2: Images 3-5 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(3)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/04.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(4)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/05.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(5)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/06.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 3: Images 6-8 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(6)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/07.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(7)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/08.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(8)">
+                          <img src="./Pictures/Balangir/Bulel Nodal Higher Secondary School/09.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 4: Images 9-11 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(9)">
+                          <img src="./Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/01.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(10)">
+                          <img src="./Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/02.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(11)">
+                          <img src="./Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/03.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 5: Images 12-14 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(12)">
+                          <img src="./Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/04.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(13)">
+                          <img src="./Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/05.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(14)">
+                          <img src="./Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/06.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 6: Image 15 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(15)">
+                          <img src="./Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/07.jpg" alt="Career Seminar" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselActivity1" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselActivity1" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="activity-card" data-aos="fade-up" data-aos-delay="100">
+            <h4><i class="fas fa-graduation-cap" style="color:#800000;"></i> Activity 2: School Visit at Kalahandi</h4>
+            <p>Our Kalahandi visit featured inspiring interactions across three campus Danteswari Govt. High School, Behera . Govt. SSD Higher Secondary School, Jayantapur . & Govt. SSD Higher Secondari School, Kuruda.</p>
+            <!-- Gallery Carousel for Activity 2 -->
+            <div class="gallery-carousel mt-4">
+              <div id="carouselActivity2" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                  <!-- Slide 1: Images 0-2 -->
+                  <div class="carousel-item active">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(16)">
+                          <img src="./Pictures/Kalahandi/Danteswari Govt. High school, Behera/01.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(17)">
+                          <img src="./Pictures/Kalahandi/Danteswari Govt. High school, Behera/02.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(18)">
+                          <img src="./Pictures/Kalahandi/Danteswari Govt. High school, Behera/03.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 2: Images 3-5 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(19)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/01.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(20)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/02.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(21)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/03.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 3: Images 6-8 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(22)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/04.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(23)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/05.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(24)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/06.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 4: Images 9-11 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(25)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/07.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(26)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/01.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(27)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/02.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 5: Images 12-14 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(28)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/03.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(29)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/04.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(30)">
+                          <img src="./Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/05.jpg" alt="Placement Training" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselActivity2" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselActivity2" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="activity-card" data-aos="fade-up" data-aos-delay="200">
+            <h4><i class="fas fa-graduation-cap" style="color:#800000;"></i> Activity 3: School Visit at Koraput</h4>
+            <p>Our Koraput tour brought us to two wonderful campuses. We enjoyed engaging interactions at Govt. High School, Patangi, and Govt. SSD Higher Secondary School, Thuriya.</p>
+            <!-- Gallery Carousel for Activity 3 -->
+            <div class="gallery-carousel mt-4">
+              <div id="carouselActivity3" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                  <!-- Slide 1: Images 0-2 -->
+                  <div class="carousel-item active">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(31)">
+                          <img src="./Pictures/Koraput/Govt. High School, Potangi/01.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(32)">
+                          <img src="./Pictures/Koraput/Govt. High School, Potangi/02.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(33)">
+                          <img src="./Pictures/Koraput/Govt. High School, Potangi/03.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 2: Images 3-5 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(34)">
+                          <img src="./Pictures/Koraput/Govt. High School, Potangi/04.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(35)">
+                          <img src="./Pictures/Koraput/Govt. High School, Potangi/05.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(36)">
+                          <img src="./Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/01.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 3: Images 6-8 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(37)">
+                          <img src="./Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/02.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(38)">
+                          <img src="./Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/03.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(39)">
+                          <img src="./Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/04.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 4: Images 9-11 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(40)">
+                          <img src="./Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/05.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(41)">
+                          <img src="./Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/06.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(42)">
+                          <img src="./Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/07.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselActivity3" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselActivity3" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="activity-card" data-aos="fade-up" data-aos-delay="300">
+            <h4><i class="fas fa-graduation-cap" style="color:#800000;"></i> Activity 4: School Visit at Malkanagiri</h4>
+            <p>Our Malkangiri visit highlights meaningful connections across two key campuses. We engaged with the vibrant communities at Govt. Higher Secondary School, Govindapally, and Govt. SSD Higher Secondary School, Mathili.</p>
+            <!-- Gallery Carousel for Activity 4 -->
+            <div class="gallery-carousel mt-4">
+              <div id="carouselActivity4" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                  <!-- Slide 1: Images 0-2 -->
+                  <div class="carousel-item active">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(43)">
+                          <img src="./Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/01.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(44)">
+                          <img src="./Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/02.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(45)">
+                          <img src="./Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/03.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 2: Images 3-5 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(46)">
+                          <img src="./Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/04.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(47)">
+                          <img src="./Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/01.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(48)">
+                          <img src="./Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/02.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 3: Images 6-8 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(49)">
+                          <img src="./Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/03.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(50)">
+                          <img src="./Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/04.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(51)">
+                          <img src="./Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/05.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 4: Images 9-10 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(52)">
+                          <img src="./Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/06.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(53)">
+                          <img src="./Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/07.jpg" alt="Women Workshop" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselActivity4" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselActivity4" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="activity-card" data-aos="fade-up" data-aos-delay="200">
+            <h4><i class="fas fa-graduation-cap" style="color:#800000;"></i> Activity 5: School Visit at Nabarangpur</h4>
+            <p>Our Nabarangpur tour brought us to two wonderful campuses. We enjoyed engaging interactions at Govt. SSD Higher Secondary School, Nishnahandi and Panchayat High School, Ekambha.</p>
+            <!-- Gallery Carousel for Activity 5 -->
+            <div class="gallery-carousel mt-4">
+              <div id="carouselActivity5" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                  <!-- Slide 1: Images 0-2 -->
+                  <div class="carousel-item active">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(31)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/01.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(32)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/02.jpg" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(33)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/03.jpg" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 2: Images 3-5 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(34)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/04.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(35)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/05.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(36)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/06.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 3: Images 6-8 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(37)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/07.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(38)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/08.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(39)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/09.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 4: Images 9-11 -->
+                  <div class="carousel-item">
+                    <div class="row g-2">
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(40)">
+                          <img src="Pictures/Nabarangpur/Govt. SSD Higher Secondary School, Nishnahandi/10.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(41)">
+                          <img src="D:\Identity Foundation Website\Pictures\Nabarangpur\Panchayat High School, Ekambha\01.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="updateModal(42)">
+                          <img src="D:\Identity Foundation Website\Pictures\Nabarangpur\Panchayat High School, Ekambha\03.jpg" alt="NDA Coaching" class="img-fluid rounded">
+                          <div class="gallery-overlay">
+                            <i class="fas fa-search"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselActivity5" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselActivity5" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <h3 class="mt-5 mb-3">Reach and Impact</h3>
+      <ul>
+        <li>Programs implemented across schools and community centers</li>
+        <li>Direct engagement with students, youth, and women</li>
+        <li>Corporate location partnerships for CSR initiatives</li>
+        <li>Comprehensive career guidance and skill development</li>
+        <li>Support for competitive examinations and recruitment drives</li>
+        <li>Sustainable livelihood and financial empowerment</li>
+      </ul>
+    </section>
+
+    <!-- Footer -->
+    <section class="container-fluid text-center text-md-start" id="footer">
+      <div class="row py-5 gy-4 gx-0 flex-column flex-md-row align-items-center align-items-md-start">
+        <div class="col-12 col-md-4 ps-md-5 mb-4 mb-md-0 text-center text-md-start">
+          <img src="./Identity Foundation logo.png" alt="Identity Foundation logo" class="img-fluid mb-3 ms-md-5" style="max-width:180px;" />
+          <p class="pt-2 px-2 px-md-0 pe-md-4 text-white small">
+            IDENTITY Foundation is committed to creating meaningful change through education, skill development, and community empowerment.
+          </p>
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6">Programs</h4>
+          <a href="our-programs.html#skilling" class="d-block mb-1" style="color:#800000;">Skilling</a>
+          <a href="our-programs.html#mental-health" class="d-block mb-1" style="color:#800000;">Mental Health</a>
+          <a href="our-programs.html#career-counselling" class="d-block mb-1" style="color:#800000;">Career Counselling</a>
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6">Quick Links</h4>
+          <a href="IDENTITY.html" class="d-block mb-1" style="color:#800000;">Home</a>
+          <a href="about.html" class="d-block mb-1" style="color:#800000;">About Us</a>
+          <a href="contact.html" class="d-block mb-1" style="color:#800000;">Contact</a>
+        </div>
+        <div class="col-12 col-md-4 f_contact text-center text-md-start">
+          <h4 class="h6">Contact Us</h4>
+          <a href="mailto:identity.foundation@gmail.com" class="d-block mb-1" style="color:#800000;"><i class="fa-solid fa-envelope"></i> identity.foundation@gmail.com</a>
+          <a href="tel:+9192939495" class="d-block mb-1" style="color:#800000;"><i class="fa-solid fa-phone"></i> +91-929-394-95</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Modal -->
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center p-0">
+            <img id="modalImage" src="" alt="Gallery Image" class="img-fluid" style="max-height: 70vh; object-fit: cover;">
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bootstrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+
+      // Gallery images array
+      const galleryImages = [
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/01.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/02.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/03.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/04.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/05.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/06.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/07.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/08.jpg',
+        './Pictures/Balangir/Bulel Nodal Higher Secondary School/09.jpg',
+        './Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/01.jpg',
+        './Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/02.jpg',
+        './Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/03.jpg',
+        './Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/04.jpg',
+        './Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/05.jpg',
+        './Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/06.jpg',
+        './Pictures/Balangir/Govt. SSD Higher Secondary School, Chudapali/07.jpg',
+        './Pictures/Kalahandi/Danteswari Govt. High school, Behera/01.jpg',
+        './Pictures/Kalahandi/Danteswari Govt. High school, Behera/02.jpg',
+        './Pictures/Kalahandi/Danteswari Govt. High school, Behera/03.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/01.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/02.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/03.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/04.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/05.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/06.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, Jayantpur/07.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/01.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/02.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/03.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/04.jpg',
+        './Pictures/Kalahandi/Govt. SSD Higher Secondary School, KURUGUDA/05.jpg',
+        './Pictures/Koraput/Govt. High School, Potangi/01.jpg',
+        './Pictures/Koraput/Govt. High School, Potangi/02.jpg',
+        './Pictures/Koraput/Govt. High School, Potangi/03.jpg',
+        './Pictures/Koraput/Govt. High School, Potangi/04.jpg',
+        './Pictures/Koraput/Govt. High School, Potangi/05.jpg',
+        './Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/01.jpg',
+        './Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/02.jpg',
+        './Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/03.jpg',
+        './Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/04.jpg',
+        './Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/05.jpg',
+        './Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/06.jpg',
+        './Pictures/Koraput/Govt. SSD Higher Secondary School, Thuria/07.jpg',
+        './Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/01.jpg',
+        './Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/02.jpg',
+        './Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/03.jpg',
+        './Pictures/Malkanagiri/Govt. Higher Secondary School, Govindapaly/04.jpg',
+        './Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/01.jpg',
+        './Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/02.jpg',
+        './Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/03.jpg',
+        './Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/04.jpg',
+        './Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/05.jpg',
+        './Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/06.jpg',
+        './Pictures/Malkanagiri/GOVT. SSD HIGHER SECONDARY SCHOOL, MATHILI/07.jpg'
+      ];
+
+      // Update modal with clicked image
+      function updateModal(index) {
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = galleryImages[index];
+      }
+    </script>
+  </body>
+</html>
