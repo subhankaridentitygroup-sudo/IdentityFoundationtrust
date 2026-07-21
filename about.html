@@ -110,6 +110,26 @@
         border-radius: 12px;
         box-shadow: 0 2px 12px rgba(128,0,0,0.09);
       }
+      .founder-section {
+        align-items: center;
+        border-bottom: 1px solid rgba(128,0,0,0.12);
+        margin-bottom: 32px;
+        padding-bottom: 32px;
+      }
+      .founder-photo {
+        width: 100%;
+        max-width: 420px;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(128,0,0,0.16);
+      }
+      .founder-label {
+        color: #800000;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
       .about-values {
         background: #f8f8f8;
         border-radius: 12px;
@@ -180,6 +200,21 @@
     </div>
     <!-- About Section -->
     <section class="container content-section" data-aos="fade-up">
+      <div class="row founder-section g-4" data-aos="fade-up">
+        <div class="col-md-5 text-center">
+          <img src="https://raw.githubusercontent.com/subhankaridentitygroup-sudo/IdentityFoundationtrust/main/Pictures/Founder.jpeg" alt="Founder of IDENTITY Foundation" class="founder-photo" />
+        </div>
+        <div class="col-md-7">
+          <h1 class="founder-label">About the Founder</h1>
+          <h3 class="mb-3">Leading With Purpose and Community Commitment</h3>
+          <p>
+            The founder of IDENTITY Foundation has shaped the organization with a clear belief in education, dignity, and opportunity for all. Through sustained community engagement, institutional collaboration, and practical support systems, the Foundation works to help students, youth, women, and underserved families build confidence and access better pathways for growth.
+          </p>
+          <p class="mb-0">
+            This vision continues to guide IDENTITY Foundation's work across education, skill development, career counselling, mental wellbeing, and social outreach, creating programmes that are rooted in empathy and designed for lasting impact.
+          </p>
+        </div>
+      </div>
       <div class="row about-values" data-aos="fade-up">
         <div class="col-md-4 text-center">
           <h4 style="color:#800000;">Our Mission</h4>
@@ -200,7 +235,8 @@
           </p>
         </div>
       </div>
-
+     
+     <div class="row about-values" data-aos="fade-up">
       <h2 class="mt-5 mb-4">Our Core Methodology</h2>
       <div class="row mt-4">
         <div class="col-md-4">
@@ -222,33 +258,9 @@
           </div>
         </div>
       </div>
+     </div>
     </section>
-    <!-- Team Section -->
-    <section class="container about-team" data-aos="fade-up" data-aos-delay="200">
-      <div class="row text-center mb-4">
-        <div class="col">
-          <h2>Meet Our Team</h2>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-md-3 mb-4">
-          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg" alt="Sapna Sharma" class="rounded-circle mb-2" style="width:120px;height:120px;object-fit:cover;" />
-          <h5>Sapna Sharma</h5>
-        </div>
-        <div class="col-md-3 mb-4">
-          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg" alt="Sarin Suseel" class="rounded-circle mb-2" style="width:120px;height:120px;object-fit:cover;" />
-          <h5>Sarin Suseel</h5>
-        </div>
-        <div class="col-md-3 mb-4">
-          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg" alt="Vinay Singh" class="rounded-circle mb-2" style="width:120px;height:120px;object-fit:cover;" />
-          <h5>Vinay Singh</h5>
-        </div>
-        <div class="col-md-3 mb-4">
-          <img src="https://raw.githubusercontent.com/vinayshilpani/An-NGO-Website/master/assets/testimonial%20(2).jpeg" alt="Nitin Kumar" class="rounded-circle mb-2" style="width:120px;height:120px;object-fit:cover;" />
-          <h5>Nitin Kumar</h5>
-        </div>
-      </div>
-    </section>
+    
     <!-- Footer -->
     <section class="container-fluid text-center text-md-start" id="footer">
       <div class="row py-5 gy-4 gx-0 flex-column flex-md-row align-items-center align-items-md-start">
