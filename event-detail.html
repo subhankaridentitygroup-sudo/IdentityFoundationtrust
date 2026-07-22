@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Details | IDENTITY Foundation</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      body {
+        background: #faf7f3;
+      }
+      #nav_bar {
+        background: rgba(214, 214, 214, 0.85);
+        backdrop-filter: blur(6px);
+      }
+      .section-heading {
+        color: #800000;
+        font-weight: 700;
+      }
+      .section-subtitle {
+        color: #5c5c5c;
+      }
+      .hero-card {
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 22px 55px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+      .hero-card .hero-image {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+      }
+      .hero-card .hero-content {
+        padding: 36px;
+      }
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #800000;
+        font-weight: 700;
+      }
+      .hero-label i {
+        font-size: 18px;
+      }
+      .hero-meta {
+        margin-top: 22px;
+      }
+      .hero-meta .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+        font-size: 0.96rem;
+      }
+      .hero-meta .meta-item i {
+        color: #800000;
+        min-width: 24px;
+      }
+      .hero-meta .meta-item span {
+        color: #4a4a4a;
+      }
+      .event-content {
+        background: #fff;
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
+      }
+      .event-content h3 {
+        color: #2b2b2b;
+      }
+      .event-content p {
+        color: #555;
+        line-height: 1.8;
+      }
+      .event-content ul {
+        padding-left: 1.25rem;
+      }
+      .event-content ul li {
+        margin-bottom: 0.85rem;
+        color: #555;
+      }
+      .event-sidebar {
+        background: #fff;
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
+      }
+      .event-sidebar h4 {
+        color: #800000;
+        margin-bottom: 18px;
+      }
+      .event-sidebar a {
+        color: #800000;
+        text-decoration: none;
+      }
+      .event-sidebar a:hover {
+        text-decoration: underline;
+      }
+      .sidebar-list li {
+        margin-bottom: 14px;
+      }
+      .sidebar-list li span {
+        display: block;
+        color: #4a4a4a;
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+      }
+      .gallery-card {
+        overflow: hidden;
+        border-radius: 18px;
+        border: 1px solid #eee;
+      }
+      .gallery-card img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        transition: transform 0.35s ease;
+        cursor: pointer;
+      }
+      .gallery-card:hover img {
+        transform: scale(1.05);
+      }
+      .lightbox-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1050;
+        padding: 24px;
+      }
+      .lightbox-overlay.active {
+        display: flex;
+      }
+      .lightbox-content {
+        position: relative;
+        width: 100%;
+        max-width: 1100px;
+        max-height: 90vh;
+        background: #fff;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+      }
+      .lightbox-content img {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 82vh;
+        object-fit: contain;
+        background: #000;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1px solid rgba(128, 0, 0, 0.15);
+        background: rgba(255, 255, 255, 0.95);
+        color: #800000;
+        font-size: 1.35rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .lightbox-close:hover {
+        background: #fff;
+        transform: scale(1.05);
+      }
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #800000;
+        color: #fff;
+        padding: 12px 28px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .cta-button:hover {
+        background: #a00000;
+      }
+      .breadcrumb-custom {
+        margin-bottom: 24px;
+        font-size: 0.95rem;
+      }
+      #nav_bar {
+        background: rgba(214, 214, 214, 0.7);
+        backdrop-filter: blur(2px);
+      }
+      .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+        align-items: center;
+      }
+      .nav-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 14px;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #ffffff, #f2f2f2);
+        color: #800000 !important;
+        border: none;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      }
+      .nav-btn:hover, .nav-btn:focus {
+        background: linear-gradient(145deg, #f7f7f7, #e5e5e5);
+        color: #800000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.9);
+      }
+      .dropdown-menu {
+        background: #fff;
+        border: 1.5px solid #800000;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(128,0,0,0.15);
+        min-width: 180px;
+      }
+      .dropdown-item {
+        color: #800000;
+        padding: 10px 16px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .dropdown-item:hover, .dropdown-item:focus {
+        background: #800000;
+        color: #fff !important;
+      }
+      .dropdown-toggle::after {
+        display: inline-block;
+      }
+      .read-more-btn, .volunteer-btn {
+        display: inline-block;
+        color: #fff !important;
+        background: #800000;
+        border: 2px solid #800000;
+        border-radius: 30px;
+        padding: 8px 28px;
+        font-weight: 600;
+        text-decoration: none !important;
+        box-shadow: 0 0 0px #800000;
+        transition: box-shadow 0.3s, background 0.3s, color 0.3s;
+        margin-top: 10px;
+      }
+      .read-more-btn:hover, .read-more-btn:focus,
+      .volunteer-btn:hover, .volunteer-btn:focus {
+        background: #fff;
+        color: #800000 !important;
+        box-shadow: 0 0 16px 4px #80000033;
+        border-color: #800000;
+      }
+      .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+      }
+      .dropdown-toggle:hover::after {
+        transform: rotate(180deg);
+      }
+      .breadcrumb-custom a {
+        color: #800000;
+        text-decoration: none;
+      }
+      .breadcrumb-custom a:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 992px) {
+        .hero-card {
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 768px) {
+        .hero-card .hero-image {
+          height: 320px;
+        }
+        .hero-meta {
+          margin-top: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top border-bottom" id="nav_bar">
+      <div class="container-fluid px-md-5">
+        <a class="navbar-brand" href="IDENTITY.html">
+          <img src="./Identity Foundation logo.png" alt="Identity Foundation Logo" height="65px" id="nav_img" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler"><i class="fa-solid fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end text-center pe-3" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link nav-btn" href="IDENTITY.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link nav-btn" href="about.html">About Us</a></li>
+            <li class="nav-item"><a class="nav-link nav-btn" href="our-programs.html">Our Programs</a></li>
+            <li class="nav-item"><a class="nav-link nav-btn" href="activities.html">Activities</a></li>
+            <li class="nav-item"><a class="nav-link nav-btn" href="stories.html">Stories of Changes</a></li>
+            <li class="nav-item"><a class="nav-link nav-btn" href="collaborators.html">Collaborators</a></li>
+            <li class="nav-item"><a class="nav-link nav-btn active" href="events.html">Events</a></li>
+            <li class="nav-item"><a class="nav-link nav-btn" href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <nav class="breadcrumb-custom" aria-label="breadcrumb">
+            <a href="events.html">Events</a> &rsaquo; <span id="eventTitleBreadcrumb">Event Details</span>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row gy-4">
+        <div class="col-lg-8">
+          <div class="hero-card shadow-sm">
+            <img id="eventHeroImage" src="assets/events/health-camp.png" alt="Event image" class="hero-image" />
+            <div class="hero-content">
+              <h1 id="eventTitle" class="mt-3">Health Camp</h1>
+              <p id="eventShortDescription" class="text-muted">Free health checkup and medicine distribution for local communities.</p>
+
+              <div class="hero-meta">
+                <div class="meta-item"><i class="fa-solid fa-calendar-day"></i> <span id="eventDate">10 Feb 2026</span></div>
+                <div class="meta-item"><i class="fa-solid fa-location-dot"></i> <span id="eventLocation">Community Hall, Bhubaneswar</span></div>
+                <div class="meta-item"><i class="fa-solid fa-clock"></i> <span id="eventDuration">9:00 AM - 4:00 PM</span></div>
+                <div class="meta-item"><i class="fa-solid fa-users"></i> <span id="eventCapacity">Open to all community members</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-content mt-4">
+            <h3>About this Event</h3>
+            <p id="eventDescription">Join our health camp for a day of free screenings, medical consultations, and medicine distribution. The event brings together local medical professionals, healthcare volunteers, and community members to help ensure better access to primary health services.</p>
+
+            <h4 class="mt-4">Key Benefits</h4>
+            <ul id="eventHighlights">
+              <li>Free general health checkups and vital screenings.</li>
+              <li>Access to expert consultations from doctors and nurses.</li>
+              <li>Distribution of free medicines and wellness advice.</li>
+              <li>Follow-up assistance and referrals for further care.</li>
+            </ul>
+
+            <h4 class="mt-4">Event Overview</h4>
+            <p id="eventOverview">This event is designed to deliver preventative care and raise awareness about common health issues in underserved neighbourhoods. Participants can receive blood pressure checks, glucose screenings, and general health counselling at no cost.</p>
+          </div>
+
+          <div class="event-content mt-4">
+            <h3>Gallery</h3>
+            <div class="gallery-grid" id="galleryGrid">
+              <div class="gallery-card"><img src="assets/events/health-camp.png" alt="Gallery image 1" /></div>
+              <div class="gallery-card"><img src="assets/events/free-clinic.png" alt="Gallery image 2" /></div>
+              <div class="gallery-card"><img src="assets/events/shelter-home.png" alt="Gallery image 3" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="event-sidebar">
+            <h4>Important Links</h4>
+            <ul class="sidebar-list list-unstyled">
+              <li><a href="#eventDescription">Event details</a></li>
+              <li><a href="#galleryGrid">Photo gallery</a></li>
+              <li><a href="#reachUsSection">Reach Us</a></li>
+              <li><a href="contact.html">Contact support</a></li>
+            </ul>
+          </div>
+
+          <div class="event-sidebar mt-4">
+            <h4>Reach Us</h4>
+            <p class="mb-2"><strong>Address</strong></p>
+            <p class="mb-3">Plot no - HIG-18, Meher Nagar, Opposite Pal Heights, Lane between Amity University & IFFCO TOKIO tower, Doordarshan Colony, Jayadev Vihar, Bhubaneswar, Odisha 751013</p>
+            <p class="mb-2"><strong>Email</strong></p>
+            <a href="mailto:identityfoundation2016@gmail.com">identityfoundation2016@gmail.com</a>
+            <p class="mb-2 mt-3"><strong>Phone</strong></p>
+            <a href="tel:+919437208179">+91 94372 08179</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="lightbox-overlay" id="lightboxOverlay" aria-hidden="true">
+      <div class="lightbox-content">
+        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close image">×</button>
+        <img id="lightboxImage" src="" alt="Expanded gallery image" />
+      </div>
+    </div>
+
+    <section class="container-fluid text-center text-md-start" id="footer">
+      <div class="row py-5 gy-4 gx-0 flex-column flex-md-row align-items-center align-items-md-start">
+        <div class="col-12 col-md-4 ps-md-5 mb-4 mb-md-0 text-center text-md-start">
+          <img src="./Identity Foundation logo.png" alt="Identity Foundation logo" class="img-fluid mb-3 ms-md-5" style="max-width:180px;" />
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6">Programs</h4>
+          <a href="our-programs.html#skilling" class="d-block mb-1" style="color:#800000;">Skilling</a>
+          <a href="our-programs.html#mental-health" class="d-block mb-1" style="color:#800000;">Mental Health</a>
+          <a href="our-programs.html#career-counselling" class="d-block mb-1" style="color:#800000;">Career Counselling</a>
+        </div>
+        <div class="col-6 col-md-2 link mb-4 mb-md-0">
+          <h4 class="h6">Quick Links</h4>
+          <a href="IDENTITY.html" class="d-block mb-1" style="color:#800000;">Home</a>
+          <a href="about.html" class="d-block mb-1" style="color:#800000;">About Us</a>
+          <a href="contact.html" class="d-block mb-1" style="color:#800000;">Contact</a>
+        </div>
+        <div class="col-12 col-md-4 f_contact text-center text-md-start">
+          <h4 class="h6">Contact Us</h4>
+          <a href="mailto:identityfoundation2016@gmail.com" class="d-block mb-1" style="color:#800000;"><i class="fa-solid fa-envelope"></i> identityfoundation2016@gmail.com</a>
+          <a href="tel:+919437208179" class="d-block mb-1" style="color:#800000;"><i class="fa-solid fa-phone"></i> +91 94372 08179</a>
+          <span class="d-block mb-1" style="color:#800000;"><i class="fa-solid fa-map-location-dot"></i> Plot no - HIG-18, Meher Nagar, Opposite Pal Heights, Lane between Amity University &amp; IFFCO TOKIO tower, Doordarshan Colony, Jayadev Vihar, Bhubaneswar, Odisha 751013</span>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+      var eventData = {
+        4: {
+          title: 'SURAVI 2025',
+          shortDescription: 'Career guidance and student engagement event at Capital High School.',
+          date: '11 Nov 2025',
+          location: 'Capital High School, Unit–3, Bhubaneswar',
+          duration: '10:00 AM - 4:00 PM',
+          capacity: 'Students and educators welcome',
+          heroImage: 'https://thecareermap.in/assets/frontend/event/1765362541_SnapInsta.to_5820791..._imresizer.jpg',
+          description: 'Identity Foundation and Career Map are proud to be part of Suravi 2025, organised by the School and Mass Education Department, Government of Odisha, and UNICEF, at Capital High School, Unit–3, Bhubaneswar. Students interacted with Career Experts and discovered diverse fields and future-ready opportunities.',
+          overview: 'This initiative included hands-on exploration of the Odisha Career Guidance Website, awareness sessions on education and skill-based learning, and engaging activities that combined curiosity with practical learning.',
+          highlights: [
+            'Students interacting with Career Experts and discovering diverse fields.',
+            'Hands-on exploration of the Odisha Career Guidance Website.',
+            'Awareness sessions on education and skill-based learning initiatives.',
+            'Fun, engaging activities that combined curiosity with practical learning.'
+          ],
+          gallery: [
+            'https://thecareermap.in/assets/frontend/event/1765362571_SnapInsta.to_584885324_18031174148742448_3039234954241777213_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362581_SnapInsta.to_582079121_18031174139742448_6294488263212735223_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362598_SnapInsta.to_586719634_18031174130742448_7761058598284199399_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362637_SnapInsta.to_582639157_18031174112742448_5112946800948972431_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362648_SnapInsta.to_586647113_18031174103742448_6214339072485306038_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362713_SnapInsta.to_573361503_18031174076742448_7136302206958637386_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362748_SnapInsta.to_586970967_18031174067742448_6839044216065803896_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362766_SnapInsta.to_586651736_18031174058742448_3158736697941875264_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362797_SnapInsta.to_582404637_18031174049742448_8746373451630051298_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362869_SnapInsta.to_581500604_18031174037742448_6361692482530454064_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765362954_SnapInsta.to_583482842_18031174028742448_847086272337848471_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765363063_SnapInsta.to_582208470_18031174019742448_5570306663743344474_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765363573_SnapInsta.to_582700153_18031174007742448_6587474394372864806_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765363604_SnapInsta.to_586399163_18031173998742448_9114725344582641696_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765363621_SnapInsta.to_582811665_18031173995742448_7710698023337994140_n.jpg',
+            'https://thecareermap.in/assets/frontend/event/1765363652_SnapInsta.to_582079149_18031173956742448_2154809730162889521_n.jpg'
+          ]
+        }
+      };
+
+      function renderEvent() {
+        var params = new URLSearchParams(window.location.search);
+        var eventId = params.get('id') || '4';
+        var event = eventData[eventId] || eventData[4];
+
+        document.getElementById('eventTitle').textContent = event.title;
+        document.getElementById('eventTitleBreadcrumb').textContent = event.title;
+        document.getElementById('eventShortDescription').textContent = event.shortDescription;
+        document.getElementById('eventDate').textContent = event.date;
+        document.getElementById('eventLocation').textContent = event.location;
+        document.getElementById('eventDuration').textContent = event.duration;
+        document.getElementById('eventCapacity').textContent = event.capacity;
+        document.getElementById('eventHeroImage').src = event.heroImage;
+        document.getElementById('eventHeroImage').alt = event.title + ' image';
+        document.getElementById('eventDescription').textContent = event.description;
+        document.getElementById('eventOverview').textContent = event.overview;
+
+        var highlights = document.getElementById('eventHighlights');
+        highlights.innerHTML = '';
+        event.highlights.forEach(function(item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          highlights.appendChild(li);
+        });
+
+        var galleryGrid = document.getElementById('galleryGrid');
+        galleryGrid.innerHTML = '';
+        event.gallery.forEach(function(src, index) {
+          var card = document.createElement('div');
+          card.className = 'gallery-card';
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = event.title + ' gallery ' + (index + 1);
+          img.addEventListener('click', function() {
+            openLightbox(src, img.alt);
+          });
+          card.appendChild(img);
+          galleryGrid.appendChild(card);
+        });
+      }
+
+      function openLightbox(src, alt) {
+        var overlay = document.getElementById('lightboxOverlay');
+        var lightboxImage = document.getElementById('lightboxImage');
+        lightboxImage.src = src;
+        lightboxImage.alt = alt;
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeLightbox() {
+        var overlay = document.getElementById('lightboxOverlay');
+        var lightboxImage = document.getElementById('lightboxImage');
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = '';
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        renderEvent();
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxOverlay').addEventListener('click', function(event) {
+          if (event.target === this) {
+            closeLightbox();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
