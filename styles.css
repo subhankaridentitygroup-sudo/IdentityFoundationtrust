@@ -1,0 +1,9 @@
+.footer-contact-pad {
+  padding-right: 6rem;
+}
+
+@media (max-width: 768px) {
+  .footer-contact-pad {
+    padding-right: 0;
+  }
+}
